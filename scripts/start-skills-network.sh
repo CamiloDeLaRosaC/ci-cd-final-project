@@ -46,6 +46,12 @@ def write(name, data):
 support = read('support.json')
 items = support.get('items', [support])
 support_tasks = [item for item in items if item['metadata']['name'] != 'buildah']
+for task in support_tasks:
+    for step in task['spec']['steps']:
+        if task['metadata']['name'] == 'git-clone':
+            step['image'] = 'registry.redhat.io/openshift-pipelines/pipelines-git-init-rhel8@sha256:043080bff45cd129c0852b55a578c1a85e8911de80fadef22a21a034a1eccd56'
+        if task['metadata']['name'] == 'deploy-application':
+            step['image'] = 'image-registry.openshift-image-registry.svc:5000/openshift/cli:latest'
 write('support-filtered.json', {'apiVersion': 'v1', 'kind': 'List', 'items': support_tasks})
 
 buildah = read('catalog-buildah.json')
