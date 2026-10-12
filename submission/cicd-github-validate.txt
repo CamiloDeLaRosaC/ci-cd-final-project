@@ -1,0 +1,255 @@
+Workflow: Validate application
+Run: https://github.com/CamiloDeLaRosaC/ci-cd-final-project/actions/runs/38189780536
+Commit: 0004c5c6b91c3187342fd611f56591a74d0dbd19
+Status: completed
+Conclusion: success
+1. Set up job: success
+2. Checkout repository: success
+3. Set up Node.js LTS: success
+4. Install dependencies: success
+5. ESLint: success
+6. Jest unit tests: success
+7. Validate delivery manifests: success
+13. Post Set up Node.js LTS: success
+14. Post Checkout repository: success
+15. Complete job: success
+2026-10-12T00:54:15.4263689Z All files |     100 |      100 |     100 |     100 |                   
+2026-10-12T00:54:15.4329164Z Test Suites: 1 passed, 1 total
+2026-10-12T00:54:15.4329597Z Tests:       14 passed, 14 total
+
+--- Authentic GitHub Actions job log ---
+2026-10-12T00:54:08.0834539Z Current runner version: '2.337.0'
+2026-10-12T00:54:08.0856844Z ##[group]Runner Image Provisioner
+2026-10-12T00:54:08.0857911Z Hosted Compute Agent
+2026-10-12T00:54:08.0858635Z Version: 20261002.596
+2026-10-12T00:54:08.0859388Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0
+2026-10-12T00:54:08.0860386Z Build Date: 2026-10-02T22:28:27Z
+2026-10-12T00:54:08.0861159Z Worker ID: {85e25410-867a-4d93-9a2d-268c74755b9b}
+2026-10-12T00:54:08.0862025Z Region: northcentralus
+2026-10-12T00:54:08.0862703Z Cloud: Azure
+2026-10-12T00:54:08.0863334Z ##[endgroup]
+2026-10-12T00:54:08.0865006Z ##[group]Operating System
+2026-10-12T00:54:08.0865593Z Ubuntu
+2026-10-12T00:54:08.0866098Z 24.04.5
+2026-10-12T00:54:08.0866556Z LTS
+2026-10-12T00:54:08.0866972Z ##[endgroup]
+2026-10-12T00:54:08.0867491Z ##[group]Runner Image
+2026-10-12T00:54:08.0867987Z Image: ubuntu-24.04
+2026-10-12T00:54:08.0868469Z Version: 20261004.327.1
+2026-10-12T00:54:08.0869538Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-12T00:54:08.0871088Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327
+2026-10-12T00:54:08.0871872Z ##[endgroup]
+2026-10-12T00:54:08.0872823Z ##[group]GITHUB_TOKEN Permissions
+2026-10-12T00:54:08.0874681Z Contents: read
+2026-10-12T00:54:08.0875509Z Metadata: read
+2026-10-12T00:54:08.0876032Z ##[endgroup]
+2026-10-12T00:54:08.0878102Z Secret source: Actions
+2026-10-12T00:54:08.0878967Z Cache mode: write
+2026-10-12T00:54:08.0879892Z Prepare workflow directory
+2026-10-12T00:54:08.1159454Z Prepare all required actions
+2026-10-12T00:54:08.1199300Z Getting action download info
+2026-10-12T00:54:08.3331200Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-12T00:54:08.6426590Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-10-12T00:54:09.5229485Z Complete job name: validate
+2026-10-12T00:54:09.6016663Z ##[group]Run actions/checkout@v4
+2026-10-12T00:54:09.6017471Z with:
+2026-10-12T00:54:09.6017916Z   persist-credentials: false
+2026-10-12T00:54:09.6018483Z   repository: CamiloDeLaRosaC/ci-cd-final-project
+2026-10-12T00:54:09.6022208Z   token: ***
+2026-10-12T00:54:09.6022679Z   ssh-strict: true
+2026-10-12T00:54:09.6023110Z   ssh-user: git
+2026-10-12T00:54:09.6023529Z   clean: true
+2026-10-12T00:54:09.6023965Z   sparse-checkout-cone-mode: true
+2026-10-12T00:54:09.6024464Z   fetch-depth: 1
+2026-10-12T00:54:09.6024888Z   fetch-tags: false
+2026-10-12T00:54:09.6025315Z   show-progress: true
+2026-10-12T00:54:09.6025749Z   lfs: false
+2026-10-12T00:54:09.6026160Z   submodules: false
+2026-10-12T00:54:09.6026602Z   set-safe-directory: true
+2026-10-12T00:54:09.6027093Z   allow-unsafe-pr-checkout: false
+2026-10-12T00:54:09.6027798Z ##[endgroup]
+2026-10-12T00:54:09.6837575Z Syncing repository: CamiloDeLaRosaC/ci-cd-final-project
+2026-10-12T00:54:09.6840121Z ##[group]Getting Git version info
+2026-10-12T00:54:09.6841457Z Working directory is '/home/runner/work/ci-cd-final-project/ci-cd-final-project'
+2026-10-12T00:54:09.6843144Z [command]/usr/bin/git version
+2026-10-12T00:54:09.6861045Z git version 2.55.0
+2026-10-12T00:54:09.6877080Z ##[endgroup]
+2026-10-12T00:54:09.6888636Z Temporarily overriding HOME='/home/runner/work/_temp/afe6effa-9991-497f-9436-6b83c306ecf2' before making global git config changes
+2026-10-12T00:54:09.6891020Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-12T00:54:09.6893130Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/ci-cd-final-project/ci-cd-final-project
+2026-10-12T00:54:09.6975159Z Deleting the contents of '/home/runner/work/ci-cd-final-project/ci-cd-final-project'
+2026-10-12T00:54:09.6979448Z ##[group]Initializing the repository
+2026-10-12T00:54:09.6984166Z [command]/usr/bin/git init /home/runner/work/ci-cd-final-project/ci-cd-final-project
+2026-10-12T00:54:09.7144718Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-12T00:54:09.7145987Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-12T00:54:09.7146840Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-12T00:54:09.7147502Z hint: call:
+2026-10-12T00:54:09.7148105Z hint:
+2026-10-12T00:54:09.7148641Z hint: 	git config --global init.defaultBranch <name>
+2026-10-12T00:54:09.7149224Z hint:
+2026-10-12T00:54:09.7149950Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-12T00:54:09.7151353Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-12T00:54:09.7152476Z hint:
+2026-10-12T00:54:09.7153169Z hint: 	git branch -m <name>
+2026-10-12T00:54:09.7153897Z hint:
+2026-10-12T00:54:09.7154879Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-12T00:54:09.7157621Z Initialized empty Git repository in /home/runner/work/ci-cd-final-project/ci-cd-final-project/.git/
+2026-10-12T00:54:09.7165300Z [command]/usr/bin/git remote add origin https://github.com/CamiloDeLaRosaC/ci-cd-final-project
+2026-10-12T00:54:09.7288262Z ##[endgroup]
+2026-10-12T00:54:09.7289029Z ##[group]Disabling automatic garbage collection
+2026-10-12T00:54:09.7300751Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-12T00:54:09.7368089Z ##[endgroup]
+2026-10-12T00:54:09.7369302Z ##[group]Setting up auth
+2026-10-12T00:54:09.7374302Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-12T00:54:09.7421772Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-12T00:54:09.7806723Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-12T00:54:09.7837207Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-12T00:54:09.8027430Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-12T00:54:09.8058351Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-12T00:54:09.8247587Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-12T00:54:09.8521504Z ##[endgroup]
+2026-10-12T00:54:09.8523263Z ##[group]Fetching the repository
+2026-10-12T00:54:09.8530172Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +0004c5c6b91c3187342fd611f56591a74d0dbd19:refs/remotes/origin/main
+2026-10-12T00:54:10.1755440Z From https://github.com/CamiloDeLaRosaC/ci-cd-final-project
+2026-10-12T00:54:10.1757614Z  * [new ref]         0004c5c6b91c3187342fd611f56591a74d0dbd19 -> origin/main
+2026-10-12T00:54:10.1760181Z ##[endgroup]
+2026-10-12T00:54:10.1761550Z ##[group]Determining the checkout info
+2026-10-12T00:54:10.1762903Z ##[endgroup]
+2026-10-12T00:54:10.1767059Z [command]/usr/bin/git sparse-checkout disable
+2026-10-12T00:54:10.1989949Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-12T00:54:10.2017848Z ##[group]Checking out the ref
+2026-10-12T00:54:10.2021094Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-10-12T00:54:10.2104489Z Switched to a new branch 'main'
+2026-10-12T00:54:10.2110495Z branch 'main' set up to track 'origin/main'.
+2026-10-12T00:54:10.2120858Z ##[endgroup]
+2026-10-12T00:54:10.2153470Z [command]/usr/bin/git log -1 --format=%H
+2026-10-12T00:54:10.2176191Z 0004c5c6b91c3187342fd611f56591a74d0dbd19
+2026-10-12T00:54:10.2183880Z ##[group]Removing auth
+2026-10-12T00:54:10.2186906Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-12T00:54:10.2214816Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-12T00:54:10.2400628Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-12T00:54:10.2430839Z http.https://github.com/.extraheader
+2026-10-12T00:54:10.2434844Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-12T00:54:10.2466763Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-12T00:54:10.2652234Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-12T00:54:10.2678701Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-12T00:54:10.2863839Z ##[endgroup]
+2026-10-12T00:54:10.3137833Z ##[group]Run actions/setup-node@v4
+2026-10-12T00:54:10.3138725Z with:
+2026-10-12T00:54:10.3139381Z   node-version: 24
+2026-10-12T00:54:10.3140213Z   cache: npm
+2026-10-12T00:54:10.3140888Z   always-auth: false
+2026-10-12T00:54:10.3141622Z   check-latest: false
+2026-10-12T00:54:10.3148894Z   token: ***
+2026-10-12T00:54:10.3149562Z ##[endgroup]
+2026-10-12T00:54:10.4263103Z Found in cache @ /opt/hostedtoolcache/node/24.21.0/x64
+2026-10-12T00:54:10.4266160Z (node:2153) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-12T00:54:10.4269413Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-12T00:54:10.4272278Z ##[group]Environment details
+2026-10-12T00:54:10.6967379Z node: v24.21.0
+2026-10-12T00:54:10.6968501Z npm: 11.19.0
+2026-10-12T00:54:10.6969544Z yarn: 1.22.22
+2026-10-12T00:54:10.6972083Z ##[endgroup]
+2026-10-12T00:54:10.7012959Z [command]/opt/hostedtoolcache/node/24.21.0/x64/bin/npm config get cache
+2026-10-12T00:54:10.7897468Z /home/runner/.npm
+2026-10-12T00:54:10.9149131Z Cache hit for: node-cache-Linux-x64-npm-f082175a95bdf515ed6eee9a8dd409dc8d33578d1373e416a8f6b48955c83ef1
+2026-10-12T00:54:10.9229631Z (node:2153) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-12T00:54:11.4863010Z Received 14351411 of 14351411 (100.0%), 31.1 MBs/sec
+2026-10-12T00:54:11.4863705Z Cache Size: ~14 MB (14351411 B)
+2026-10-12T00:54:11.4890507Z [command]/usr/bin/tar -xf /home/runner/work/_temp/8faeef15-19d1-43d1-9f4e-fa43a6b01e77/cache.tzst -P -C /home/runner/work/ci-cd-final-project/ci-cd-final-project --use-compress-program unzstd
+2026-10-12T00:54:11.5762452Z Cache restored successfully
+2026-10-12T00:54:11.5771457Z Cache restored from key: node-cache-Linux-x64-npm-f082175a95bdf515ed6eee9a8dd409dc8d33578d1373e416a8f6b48955c83ef1
+2026-10-12T00:54:11.5909185Z ##[group]Run npm ci
+2026-10-12T00:54:11.5909506Z [36;1mnpm ci[0m
+2026-10-12T00:54:11.6127840Z shell: /usr/bin/bash -e {0}
+2026-10-12T00:54:11.6128138Z ##[endgroup]
+2026-10-12T00:54:13.2514068Z npm warn deprecated glob@10.5.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+2026-10-12T00:54:14.1983122Z 
+2026-10-12T00:54:14.1985492Z added 427 packages, and audited 428 packages in 3s
+2026-10-12T00:54:14.1986724Z 
+2026-10-12T00:54:14.2011840Z 95 packages are looking for funding
+2026-10-12T00:54:14.2024521Z   run `npm fund` for details
+2026-10-12T00:54:14.2237541Z 
+2026-10-12T00:54:14.2238094Z 19 moderate severity vulnerabilities
+2026-10-12T00:54:14.2238434Z 
+2026-10-12T00:54:14.2241672Z To address all issues (including breaking changes), run:
+2026-10-12T00:54:14.2242338Z   npm audit fix --force
+2026-10-12T00:54:14.2242549Z 
+2026-10-12T00:54:14.2243139Z Run `npm audit` for details.
+2026-10-12T00:54:14.2248169Z npm warn install-scripts 2 packages have install scripts not yet covered by allowScripts:
+2026-10-12T00:54:14.2249544Z npm warn install-scripts   @parcel/watcher@2.6.0 (install: node scripts/build-from-source.js)
+2026-10-12T00:54:14.2250967Z npm warn install-scripts   unrs-resolver@1.12.2 (postinstall: node postinstall.js)
+2026-10-12T00:54:14.2251855Z npm warn install-scripts
+2026-10-12T00:54:14.2252913Z npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+2026-10-12T00:54:14.3265794Z ##[group]Run npm run lint
+2026-10-12T00:54:14.3266066Z [36;1mnpm run lint[0m
+2026-10-12T00:54:14.3323579Z shell: /usr/bin/bash -e {0}
+2026-10-12T00:54:14.3323822Z ##[endgroup]
+2026-10-12T00:54:14.4175025Z 
+2026-10-12T00:54:14.4175654Z > ci-cd-final-project@1.0.0 lint
+2026-10-12T00:54:14.4175971Z > eslint .
+2026-10-12T00:54:14.4176081Z 
+2026-10-12T00:54:14.6813455Z ##[group]Run npm test
+2026-10-12T00:54:14.6813700Z [36;1mnpm test[0m
+2026-10-12T00:54:14.6869905Z shell: /usr/bin/bash -e {0}
+2026-10-12T00:54:14.6870133Z ##[endgroup]
+2026-10-12T00:54:14.7787642Z 
+2026-10-12T00:54:14.7788141Z > ci-cd-final-project@1.0.0 test
+2026-10-12T00:54:14.7788640Z > jest --runInBand --coverage
+2026-10-12T00:54:14.7788916Z 
+2026-10-12T00:54:15.4148850Z PASS tests/app.test.js
+2026-10-12T00:54:15.4150140Z   product catalog
+2026-10-12T00:54:15.4152339Z     ✓ health and empty catalog (26 ms)
+2026-10-12T00:54:15.4152987Z     ✓ create, read, filter, update and idempotently delete (27 ms)
+2026-10-12T00:54:15.4153562Z     ✓ reject invalid data {} (3 ms)
+2026-10-12T00:54:15.4154079Z     ✓ reject invalid data {"name":4,"priceCents":1} (2 ms)
+2026-10-12T00:54:15.4154640Z     ✓ reject invalid data {"name":"","priceCents":1} (3 ms)
+2026-10-12T00:54:15.4155237Z     ✓ reject invalid data {"name":" ","priceCents":1} (3 ms)
+2026-10-12T00:54:15.4156749Z     ✓ reject invalid data {"name":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","priceCents":1} (2 ms)
+2026-10-12T00:54:15.4158069Z     ✓ reject invalid data {"name":"Hat","priceCents":-1} (2 ms)
+2026-10-12T00:54:15.4158708Z     ✓ reject invalid data {"name":"Hat","priceCents":1.5} (3 ms)
+2026-10-12T00:54:15.4159342Z     ✓ reject invalid data {"name":"Hat","priceCents":"1"} (2 ms)
+2026-10-12T00:54:15.4160081Z     ✓ reject invalid data null (2 ms)
+2026-10-12T00:54:15.4160742Z     ✓ missing products, endpoints, and invalid queries (6 ms)
+2026-10-12T00:54:15.4161305Z     ✓ malformed JSON returns a safe error (2 ms)
+2026-10-12T00:54:15.4162035Z     ✓ unexpected storage failures return 500 without leaking internals (2 ms)
+2026-10-12T00:54:15.4162425Z 
+2026-10-12T00:54:15.4260906Z ----------|---------|----------|---------|---------|-------------------
+2026-10-12T00:54:15.4261969Z File      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+2026-10-12T00:54:15.4262979Z ----------|---------|----------|---------|---------|-------------------
+2026-10-12T00:54:15.4263689Z All files |     100 |      100 |     100 |     100 |                   
+2026-10-12T00:54:15.4264265Z  app.js   |     100 |      100 |     100 |     100 |                   
+2026-10-12T00:54:15.4264860Z ----------|---------|----------|---------|---------|-------------------
+2026-10-12T00:54:15.4329164Z Test Suites: 1 passed, 1 total
+2026-10-12T00:54:15.4329597Z Tests:       14 passed, 14 total
+2026-10-12T00:54:15.4330082Z Snapshots:   0 total
+2026-10-12T00:54:15.4330390Z Time:        0.492 s
+2026-10-12T00:54:15.4330652Z Ran all test suites.
+2026-10-12T00:54:15.5380078Z ##[group]Run npm run validate
+2026-10-12T00:54:15.5380485Z [36;1mnpm run validate[0m
+2026-10-12T00:54:15.5436848Z shell: /usr/bin/bash -e {0}
+2026-10-12T00:54:15.5437099Z ##[endgroup]
+2026-10-12T00:54:15.6216040Z 
+2026-10-12T00:54:15.6216896Z > ci-cd-final-project@1.0.0 validate
+2026-10-12T00:54:15.6217239Z > node scripts/validate.js
+2026-10-12T00:54:15.6217391Z 
+2026-10-12T00:54:15.6637469Z PASS: 17 YAML resources; workflow commands; ordered Task references; workspaces; PVC; security and service mappings.
+2026-10-12T00:54:15.6639028Z Cluster API/schema compatibility and external executions require server-side verification.
+2026-10-12T00:54:15.6808805Z Post job cleanup.
+2026-10-12T00:54:15.7769303Z (node:2304) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-12T00:54:15.7770544Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-12T00:54:15.7772626Z Cache hit occurred on the primary key node-cache-Linux-x64-npm-f082175a95bdf515ed6eee9a8dd409dc8d33578d1373e416a8f6b48955c83ef1, not saving cache.
+2026-10-12T00:54:15.7900568Z Post job cleanup.
+2026-10-12T00:54:15.8567227Z [command]/usr/bin/git version
+2026-10-12T00:54:15.8601076Z git version 2.55.0
+2026-10-12T00:54:15.8629609Z Temporarily overriding HOME='/home/runner/work/_temp/dc1bf24a-0b29-4d06-a912-25e60db83526' before making global git config changes
+2026-10-12T00:54:15.8654525Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-12T00:54:15.8655613Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/ci-cd-final-project/ci-cd-final-project
+2026-10-12T00:54:15.8665400Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-12T00:54:15.8695817Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-12T00:54:15.8924657Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-12T00:54:15.8955419Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-12T00:54:15.9181654Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-12T00:54:15.9213698Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-12T00:54:15.9542653Z Cleaning up orphan processes
+2026-10-12T00:54:15.9777580Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

@@ -28,3 +28,5 @@ OpenShift and server-side Tekton schema validation remain pending. No OpenShift 
 
 ## Exact grading-rubric alignment
 PVC requests 1Gi with storageClassName skills-network-learner. Pipeline stage labels are cleanup, git-clone, eslint, jest, buildah, deploy. Application defaults to port 8000 and prints SERVICERUNNING in its startup banner. These configurations do not prove cluster execution; Questions 5–8 still require genuine lab screenshots/logs.
+
+Latest verified source run: https://github.com/CamiloDeLaRosaC/ci-cd-final-project/actions/runs/38189780536 (commit 0004c5c6b91c3187342fd611f56591a74d0dbd19, completed/success). Question 4 terminal output and full authentic job log: submission/cicd-github-validate.txt.
