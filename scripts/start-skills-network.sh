@@ -25,7 +25,21 @@ from pathlib import Path
 
 folder = Path('.lab')
 def read(name):
-    return json.loads((folder / name).read_text())
+    text = (folder / name).read_text().strip()
+    decoder = json.JSONDecoder()
+    documents = []
+    while text:
+        document, end = decoder.raw_decode(text)
+        documents.append(document)
+        text = text[end:].lstrip()
+    if not documents:
+        raise ValueError('No JSON documents in ' + name)
+    if len(documents) == 1:
+        return documents[0]
+    items = []
+    for document in documents:
+        items.extend(document.get('items', [document]))
+    return {'apiVersion': 'v1', 'kind': 'List', 'items': items}
 def write(name, data):
     (folder / name).write_text(json.dumps(data, indent=2) + '\n')
 
