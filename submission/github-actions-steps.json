@@ -1,0 +1,82 @@
+[
+  {
+    "name": "Set up job",
+    "status": "completed",
+    "conclusion": "success",
+    "number": 1,
+    "started_at": "2026-10-12T00:44:40Z",
+    "completed_at": "2026-10-12T00:44:41Z"
+  },
+  {
+    "name": "Checkout repository",
+    "status": "completed",
+    "conclusion": "success",
+    "number": 2,
+    "started_at": "2026-10-12T00:44:41Z",
+    "completed_at": "2026-10-12T00:44:42Z"
+  },
+  {
+    "name": "Set up Node.js LTS",
+    "status": "completed",
+    "conclusion": "success",
+    "number": 3,
+    "started_at": "2026-10-12T00:44:42Z",
+    "completed_at": "2026-10-12T00:44:43Z"
+  },
+  {
+    "name": "Install dependencies",
+    "status": "completed",
+    "conclusion": "success",
+    "number": 4,
+    "started_at": "2026-10-12T00:44:43Z",
+    "completed_at": "2026-10-12T00:44:51Z"
+  },
+  {
+    "name": "ESLint",
+    "status": "completed",
+    "conclusion": "success",
+    "number": 5,
+    "started_at": "2026-10-12T00:44:51Z",
+    "completed_at": "2026-10-12T00:44:52Z"
+  },
+  {
+    "name": "Jest unit tests",
+    "status": "completed",
+    "conclusion": "success",
+    "number": 6,
+    "started_at": "2026-10-12T00:44:52Z",
+    "completed_at": "2026-10-12T00:44:54Z"
+  },
+  {
+    "name": "Validate delivery manifests",
+    "status": "completed",
+    "conclusion": "success",
+    "number": 7,
+    "started_at": "2026-10-12T00:44:54Z",
+    "completed_at": "2026-10-12T00:44:54Z"
+  },
+  {
+    "name": "Post Set up Node.js LTS",
+    "status": "completed",
+    "conclusion": "success",
+    "number": 13,
+    "started_at": "2026-10-12T00:44:54Z",
+    "completed_at": "2026-10-12T00:44:56Z"
+  },
+  {
+    "name": "Post Checkout repository",
+    "status": "completed",
+    "conclusion": "success",
+    "number": 14,
+    "started_at": "2026-10-12T00:44:56Z",
+    "completed_at": "2026-10-12T00:44:57Z"
+  },
+  {
+    "name": "Complete job",
+    "status": "completed",
+    "conclusion": "success",
+    "number": 15,
+    "started_at": "2026-10-12T00:44:57Z",
+    "completed_at": "2026-10-12T00:44:57Z"
+  }
+]

@@ -1,30 +1,27 @@
 # Option 1 — Submission status
 
-No GitHub repository URL or live OpenShift project is configured. Required external evidence is absent; no screenshots, remote logs, deployment states or workflow statuses have been fabricated.
+Repository: https://github.com/CamiloDeLaRosaC/ci-cd-final-project
+Visibility: private. The authenticated owner can access these real URLs; external grader access remains pending authorization to make the repository public.
 
-| Task | Points | Required deliverable | Status | Evidence/blocker |
-| --- | ---: | --- | --- | --- |
-| 1 | 2 | GitHub URL of README.md | BLOCKED | README.md implemented locally; no matching connected repository or remote configured. Actual URL unavailable. |
-| 2 | 4 | GitHub URL of .github/workflows/workflow.yml | BLOCKED | Workflow implemented and structurally validated; actual hosted URL unavailable. |
-| 3 | 4 | GitHub URL of .tekton/tasks.yml | BLOCKED | Cleanup and unit-tests Tasks implemented; actual hosted URL unavailable. |
-| 4 | 2 | submission/oc-pipelines-console-pvc-details.png | BLOCKED | No cluster context or oc/kubectl; PVC manifest prepared but Bound state unknown. Screenshot absent. |
-| 5 | 2 | submission/cicd-github-validate.png | BLOCKED | No pushed repository/run. Local lint/tests do not prove a successful GitHub Actions run. Screenshot absent. |
-| 6 | 2 | submission/oc-pipelines-oc-final.png | BLOCKED | Pipeline implemented; not applied to a live OpenShift cluster. Screenshot absent. |
-| 7 | 2 | submission/oc-pipelines-oc-green.png | BLOCKED | PipelineRun configurable; not executed on a live cluster. Screenshot absent. |
-| 8 | 2 | submission/oc-pipelines-app-logs.txt | BLOCKED | Application not deployed to OpenShift. Cluster application logs absent. |
+| Task | Points | Verified deliverable | Status |
+| --- | ---: | --- | --- |
+| 1 | 2 | https://github.com/CamiloDeLaRosaC/ci-cd-final-project/blob/main/README.md | COMPLETE — published; grader access pending |
+| 2 | 4 | https://github.com/CamiloDeLaRosaC/ci-cd-final-project/blob/main/.github/workflows/workflow.yml | COMPLETE — published and executed successfully; grader access pending |
+| 3 | 4 | https://github.com/CamiloDeLaRosaC/ci-cd-final-project/blob/main/.tekton/tasks.yml | COMPLETE — published; cluster verification pending |
+| 4 | 2 | submission/oc-pipelines-console-pvc-details.png | BLOCKED — no OpenShift context; screenshot absent |
+| 5 | 2 | submission/cicd-github-validate.png and submission/github-actions-success.txt | COMPLETE — real successful Actions run and all-step logs |
+| 6 | 2 | submission/oc-pipelines-oc-final.png | BLOCKED — OpenShift pipeline screenshot absent |
+| 7 | 2 | submission/oc-pipelines-oc-green.png | BLOCKED — OpenShift PipelineRun not executed |
+| 8 | 2 | submission/oc-pipelines-app-logs.txt | BLOCKED — no deployed OpenShift application logs |
 
-## Implementation status
+## Verified GitHub Actions execution
 
-README, application, lockfile, CI workflow, Tekton tasks/pipeline, configurable PipelineRun, PVC, Deployment, Service, Route, ImageStream, ServiceAccount and namespaced RBAC are prepared. External schema compatibility and deployment: **PENDING VERIFICATION**.
+https://github.com/CamiloDeLaRosaC/ci-cd-final-project/actions/runs/38189172899
 
-Local results and environment findings are recorded in FINAL_REPORT.md and the accompanying real command logs. `scripts/collect-evidence.sh` retrieves actual cluster outputs once access is configured. Capture screenshots using the real screens described in README. After hosting and successful runs, replace the blocked entries with exact verified URLs and evidence paths. A path naming a missing file does not count as evidence.
+Commit: ecd3c8f1e63a55f305f21ce08227ca94ab9ac251. Status: completed. Conclusion: success. The screenshot shows the real validate job and its checkout, Node setup, dependency installation, ESLint, Jest and manifest-validation steps. github-actions-run.json and github-actions-steps.json retain API-verified status/steps. github-actions-success.txt is the authentic downloaded job log.
 
-## Verified local checks — COMPLETE
+## Verified local checks
 
-- ESLint: exit 0, no errors.
-- Jest: 14/14 tests passed; src/app.js coverage 100% in all four metrics.
-- YAML/reference checks: 16 resources passed local validation.
-- Production dependency audit: 0 vulnerabilities reported.
-- Real local startup, health, create/read requests: passed.
+ESLint passed; Jest 14/14 tests passed with 100% coverage of src/app.js; 16 YAML resources passed structural checks; production audit reported 0 vulnerabilities. Local startup, health and CRUD smoke checks passed.
 
-These results do not change the eight external grading items from BLOCKED.
+OpenShift and server-side Tekton schema validation remain pending. No OpenShift screenshots or logs have been fabricated. See README for exact commands and manual screenshot targets.

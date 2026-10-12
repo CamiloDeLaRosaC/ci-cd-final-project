@@ -1,5 +1,9 @@
 # CI/CD Final Project
 
+Repository: https://github.com/CamiloDeLaRosaC/ci-cd-final-project
+
+Verified successful GitHub Actions run: https://github.com/CamiloDeLaRosaC/ci-cd-final-project/actions/runs/38189172899
+
 An Express product catalog API with automated ESLint/Jest validation in GitHub Actions and a six-stage Tekton delivery pipeline for Red Hat OpenShift. Prepared for Coursera Option 1 (eight grading deliverables).
 
 ## Technology stack
