@@ -1,0 +1,66 @@
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: oc-final
+spec:
+  params:
+    - name: repo-url
+      type: string
+    - name: revision
+      type: string
+      default: main
+  workspaces:
+    - name: shared-workspace
+  tasks:
+    - name: cleanup
+      taskRef:
+        name: cleanup
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+    - name: clone
+      runAfter: [cleanup]
+      taskRef:
+        name: git-clone
+      params:
+        - name: url
+          value: $(params.repo-url)
+        - name: revision
+          value: $(params.revision)
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+    - name: validate
+      runAfter: [clone]
+      taskRef:
+        name: validate-source
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+    - name: tests
+      runAfter: [validate]
+      taskRef:
+        name: unit-tests
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+    - name: build
+      runAfter: [tests]
+      taskRef:
+        name: build-image
+      params:
+        - name: image-tag
+          value: $(context.pipelineRun.name)
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+    - name: deploy
+      runAfter: [build]
+      taskRef:
+        name: deploy-application
+      params:
+        - name: image
+          value: $(tasks.build.results.image)
+      workspaces:
+        - name: source
+          workspace: shared-workspace

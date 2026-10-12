@@ -1,0 +1,134 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: git-clone
+spec:
+  params:
+    - name: url
+      type: string
+    - name: revision
+      type: string
+      default: main
+  workspaces:
+    - name: source
+  steps:
+    - name: clone
+      image: alpine/git:2.49.1
+      workingDir: $(workspaces.source.path)
+      env:
+        - name: REPO_URL
+          value: $(params.url)
+        - name: REVISION
+          value: $(params.revision)
+        - name: HOME
+          value: /tmp
+      script: |
+        #!/bin/sh
+        set -eu
+        case "$REPO_URL" in https://github.com/*) ;; *) echo 'A real HTTPS GitHub URL is required'; exit 1;; esac
+        if [ ! -d source/.git ]; then
+          git clone -- "$REPO_URL" source
+        fi
+        cd source
+        git config --global --add safe.directory "$PWD"
+        test "$(git remote get-url origin)" = "$REPO_URL"
+        git fetch origin "$REVISION"
+        git checkout --detach FETCH_HEAD
+        git rev-parse HEAD
+---
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: validate-source
+spec:
+  workspaces:
+    - name: source
+  steps:
+    - name: eslint-and-manifests
+      image: node:24-alpine
+      workingDir: $(workspaces.source.path)/source
+      env:
+        - name: HOME
+          value: /tmp
+        - name: NPM_CONFIG_CACHE
+          value: /tmp/npm-cache
+      script: |
+        #!/bin/sh
+        set -eu
+        npm ci --no-audit --no-fund
+        npm run lint
+        npm run validate
+---
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: build-image
+spec:
+  params:
+    - name: image-tag
+      type: string
+  workspaces:
+    - name: source
+  results:
+    - name: image
+      description: Built image reference including digest
+  steps:
+    - name: openshift-build
+      image: quay.io/openshift/origin-cli:4.18
+      workingDir: $(workspaces.source.path)/source
+      env:
+        - name: IMAGE_TAG
+          value: $(params.image-tag)
+      script: |
+        #!/bin/sh
+        set -eu
+        # Unique BuildConfig and output tag prevent concurrent build collisions.
+        oc create -f - <<EOF
+        apiVersion: build.openshift.io/v1
+        kind: BuildConfig
+        metadata:
+          name: catalog-$IMAGE_TAG
+        spec:
+          source:
+            type: Binary
+          strategy:
+            type: Docker
+            dockerStrategy:
+              dockerfilePath: Dockerfile
+          output:
+            to:
+              kind: ImageStreamTag
+              name: ci-cd-final-project:$IMAGE_TAG
+          runPolicy: Serial
+        EOF
+        oc start-build "catalog-$IMAGE_TAG" --from-dir=. --follow --wait
+        oc get istag "ci-cd-final-project:$IMAGE_TAG" \
+          -o jsonpath='{.image.dockerImageReference}' > "$(results.image.path)"
+        test -s "$(results.image.path)"
+---
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: deploy-application
+spec:
+  params:
+    - name: image
+      type: string
+  workspaces:
+    - name: source
+  steps:
+    - name: rollout-and-health
+      image: quay.io/openshift/origin-cli:4.18
+      workingDir: $(workspaces.source.path)/source
+      env:
+        - name: APP_IMAGE
+          value: $(params.image)
+      script: |
+        #!/bin/sh
+        set -eu
+        oc apply -f k8s/application.yml
+        oc set image deployment/ci-cd-final-project catalog="$APP_IMAGE"
+        oc rollout status deployment/ci-cd-final-project --timeout=180s
+        oc exec deployment/ci-cd-final-project -- node -e \
+          'fetch("http://127.0.0.1:8080/health").then(async r => {if (!r.ok || (await r.json()).status !== "ok") process.exit(1); console.log("Health OK");}).catch(() => process.exit(1))'
+        oc logs deployment/ci-cd-final-project --tail=100

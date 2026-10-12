@@ -1,0 +1,5 @@
+npm warn Unknown env config "http-proxy". This will error in a future major version of npm. See `npm help npmrc` for supported config options.
+npm notice run ci-cd-final-project@1.0.0 validate
+npm notice run node scripts/validate.js
+PASS: 16 YAML resources; workflow commands; ordered Task references; workspaces; PVC; security and service mappings.
+Cluster API/schema compatibility and external executions require server-side verification.

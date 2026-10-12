@@ -1,0 +1,25 @@
+{
+  "name": "ci-cd-final-project",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Product catalog API with GitHub Actions and OpenShift Tekton delivery",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "lint": "eslint .",
+    "test": "jest --runInBand --coverage",
+    "validate": "node scripts/validate.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^10.12.0",
+    "globals": "^17.13.0",
+    "jest": "^30.5.2",
+    "js-yaml": "^5.4.3",
+    "supertest": "^7.3.1"
+  }
+}

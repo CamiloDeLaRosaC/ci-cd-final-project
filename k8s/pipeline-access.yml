@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: ci-cd-pipeline
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: ci-cd-pipeline
+rules:
+  - apiGroups: [build.openshift.io]
+    resources: [buildconfigs, builds, buildconfigs/instantiatebinary, builds/log]
+    verbs: [get, list, watch, create, update, patch]
+  - apiGroups: [image.openshift.io]
+    resources: [imagestreams, imagestreamtags]
+    verbs: [get, list, watch, create, update, patch]
+  - apiGroups: [apps]
+    resources: [deployments, replicasets]
+    verbs: [get, list, watch, create, update, patch]
+  - apiGroups: ['']
+    resources: [services]
+    verbs: [get, list, watch, create, update, patch]
+  - apiGroups: ['']
+    resources: [pods, pods/log]
+    verbs: [get, list, watch]
+  - apiGroups: ['']
+    resources: [pods/exec]
+    verbs: [get, create]
+  - apiGroups: [route.openshift.io]
+    resources: [routes]
+    verbs: [get, list, watch, create, update, patch]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ci-cd-pipeline
+subjects:
+  - kind: ServiceAccount
+    name: ci-cd-pipeline
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: ci-cd-pipeline
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: ci-cd-final-project

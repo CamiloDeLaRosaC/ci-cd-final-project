@@ -1,0 +1,2 @@
+{"event":"started","port":8080,"service":"ci-cd-final-project"}
+{"event":"shutdown","signal":"SIGINT"}

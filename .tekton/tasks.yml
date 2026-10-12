@@ -1,0 +1,41 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: cleanup
+spec:
+  workspaces:
+    - name: source
+  steps:
+    - name: remove-artifacts
+      image: alpine:3.22
+      script: |
+        #!/bin/sh
+        set -eu
+        # Only generated artifacts; never erase repository source or PVC data.
+        rm -rf -- "$(workspaces.source.path)/source/node_modules" \
+          "$(workspaces.source.path)/source/coverage" \
+          "$(workspaces.source.path)/source/dist"
+        echo 'Removed generated application artifacts'
+---
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: unit-tests
+spec:
+  workspaces:
+    - name: source
+  steps:
+    - name: jest
+      image: node:24-alpine
+      workingDir: $(workspaces.source.path)/source
+      env:
+        - name: HOME
+          value: /tmp
+        - name: NPM_CONFIG_CACHE
+          value: /tmp/npm-cache
+      script: |
+        #!/bin/sh
+        set -eu
+        node --version
+        npm ci --no-audit --no-fund
+        npm test
