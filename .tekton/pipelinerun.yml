@@ -11,7 +11,7 @@ spec:
     pipeline: 30m
   params:
     - name: repo-url
-      value: ''
+      value: https://github.com/CamiloDeLaRosaC/ci-cd-final-project.git
     - name: revision
       value: main
   workspaces:

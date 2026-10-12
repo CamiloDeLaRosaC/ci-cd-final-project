@@ -1,7 +1,7 @@
 npm warn Unknown env config "http-proxy". This will error in a future major version of npm. See `npm help npmrc` for supported config options.
 npm notice run ci-cd-final-project@1.0.0 test
 npm notice run jest --runInBand --coverage
-(node:5634) ExperimentalWarning: WASI is an experimental feature and might change at any time
+(node:6048) ExperimentalWarning: WASI is an experimental feature and might change at any time
 (Use `node --trace-warnings ...` to show where the warning was created)
 ----------|---------|----------|---------|---------|-------------------
 File      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
@@ -12,5 +12,5 @@ All files |     100 |      100 |     100 |     100 |
 Test Suites: 1 passed, 1 total
 Tests:       14 passed, 14 total
 Snapshots:   0 total
-Time:        0.316 s, estimated 1 s
+Time:        0.243 s, estimated 1 s
 Ran all test suites.

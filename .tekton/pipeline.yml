@@ -18,7 +18,7 @@ spec:
       workspaces:
         - name: source
           workspace: shared-workspace
-    - name: clone
+    - name: git-clone
       runAfter: [cleanup]
       taskRef:
         name: git-clone
@@ -30,24 +30,24 @@ spec:
       workspaces:
         - name: source
           workspace: shared-workspace
-    - name: validate
-      runAfter: [clone]
+    - name: eslint
+      runAfter: [git-clone]
       taskRef:
         name: validate-source
       workspaces:
         - name: source
           workspace: shared-workspace
-    - name: tests
-      runAfter: [validate]
+    - name: jest
+      runAfter: [eslint]
       taskRef:
         name: unit-tests
       workspaces:
         - name: source
           workspace: shared-workspace
-    - name: build
-      runAfter: [tests]
+    - name: buildah
+      runAfter: [jest]
       taskRef:
-        name: build-image
+        name: buildah
       params:
         - name: image-tag
           value: $(context.pipelineRun.name)
@@ -55,12 +55,12 @@ spec:
         - name: source
           workspace: shared-workspace
     - name: deploy
-      runAfter: [build]
+      runAfter: [buildah]
       taskRef:
         name: deploy-application
       params:
         - name: image
-          value: $(tasks.build.results.image)
+          value: $(tasks.buildah.results.image)
       workspaces:
         - name: source
           workspace: shared-workspace

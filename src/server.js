@@ -1,7 +1,8 @@
 const { createApp } = require('./app');
-const port = Number(process.env.PORT || 8080);
+const port = Number(process.env.PORT || 8000);
 if (!Number.isInteger(port) || port < 1 || port > 65535) throw new Error('PORT must be between 1 and 65535');
 const server = createApp().listen(port, '0.0.0.0', () => {
+  console.log(`********** SERVICERUNNING on port ${port} **********`);
   console.log(JSON.stringify({ event: 'started', port, service: 'ci-cd-final-project' }));
 });
 function shutdown(signal) {

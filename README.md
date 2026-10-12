@@ -8,7 +8,7 @@ An Express product catalog API with automated ESLint/Jest validation in GitHub A
 
 ## Technology stack
 
-Node.js 24 LTS, Express, ESLint, Jest, Supertest, GitHub Actions, Tekton `v1`, Kubernetes and OpenShift binary Docker builds. `js-yaml` validates manifests locally.
+Node.js 24 LTS, Express, ESLint, Jest, Supertest, GitHub Actions, Tekton `v1`, Kubernetes and Buildah image builds. `js-yaml` validates manifests locally.
 
 ## Install and run
 
@@ -17,12 +17,12 @@ npm ci
 npm start
 ```
 
-The application listens on `0.0.0.0:8080`. Set `PORT` to change the port. It logs startup/shutdown events as JSON to stdout. No credentials are required for the public sample application.
+The application listens on `0.0.0.0:8000`. Set `PORT` to change the port. It logs startup/shutdown events as JSON to stdout. No credentials are required for the public sample application.
 
 ```sh
-curl --fail http://localhost:8080/health
+curl --fail http://localhost:8000/health
 curl --fail -H 'Content-Type: application/json' \
-  -d '{"name":"Hat","priceCents":5995}' http://localhost:8080/products
+  -d '{"name":"Hat","priceCents":5995}' http://localhost:8000/products
 ```
 
 Products support POST/GET `/products`, exact-name search (`?name=Hat`), GET/PUT/DELETE `/products/:id`. Prices use integer cents. Invalid payloads return 400, missing records return 404, deletion is idempotent (204). Data is isolated per application instance and stored in memory; restarting the pod clears it. This is an educational single-replica service, with no authentication or durable product database. The PVC stores pipeline source/build artifacts, not product records.
@@ -43,13 +43,13 @@ Jest tests the API over real local HTTP requests, including persistence across r
 
 ## Tekton delivery
 
-Pipeline `oc-final` performs cleanup → clone → dependency/lint/manifest validation → Jest unit tests → image build → deployment/health check. Every stage has explicit dependencies. `.tekton/tasks.yml` contains the graded cleanup and unit-test tasks; `.tekton/support-tasks.yml` supplies the other tasks. Cleanup only removes generated `node_modules`, `coverage` and `dist` directories inside the source subdirectory. It preserves repository files and unrelated PVC data. The clone task verifies the origin and checks out the requested revision without forcing away changes. Run it with a pushed commit SHA using the renderer below.
+Pipeline `oc-final` performs cleanup → git-clone → eslint → jest → buildah → deploy. Every stage has explicit dependencies. `.tekton/tasks.yml` contains the graded cleanup and unit-test tasks; `.tekton/support-tasks.yml` supplies the other tasks. Cleanup only removes generated `node_modules`, `coverage` and `dist` directories inside the source subdirectory. It preserves repository files and unrelated PVC data. The clone task verifies the origin and checks out the requested revision without forcing away changes. Run it with a pushed commit SHA using the renderer below.
 
-Image building uses the cluster's OpenShift Build API with a binary Docker BuildConfig, instead of requiring privileged Buildah in a Tekton step. Each run gets a unique BuildConfig/tag. The resulting image digest is passed to deployment. The application image runs as non-root, allows OpenShift's assigned UID, drops capabilities, prevents privilege escalation and uses a read-only root filesystem. No extra SCC grants are included. Cluster build policy must permit Docker builds. CLI/task images and Tekton v1 API support need confirmation against the actual cluster.
+Image building now uses a real Buildah task, as required by the precise grading rubric. Registry credentials come from the existing pod service account, are held only in an emptyDir and removed after pushing. TLS verification stays enabled. The application image remains non-root and restricted; the Buildah build step separately requires a cluster-approved build SCC and registry certificate trust. This configuration has not been certified on the unavailable lab cluster. No SCC privilege grants are applied automatically.
 
 ## OpenShift deployment
 
-Prerequisites: access to an OpenShift project, `oc`, installed OpenShift Pipelines supporting `tekton.dev/v1`, Build API, internal registry, default StorageClass and permissions to create the supplied namespaced RBAC/resources. An administrator may need to grant those prerequisites. No secrets or credentials are included. The sample supports a public HTTPS GitHub repository. Private repositories require cluster-managed git credentials configured separately.
+Prerequisites: access to an OpenShift project, `oc`, installed OpenShift Pipelines supporting `tekton.dev/v1`, Build API, internal registry, `skills-network-learner` StorageClass and permissions to create the supplied namespaced RBAC/resources. An administrator may need to grant those prerequisites. No secrets or credentials are included. The repository is public at https://github.com/CamiloDeLaRosaC/ci-cd-final-project.
 
 Set `NAMESPACE` to the actual authorized project before applying anything:
 
@@ -103,4 +103,6 @@ See `submission/SUBMISSION.md` for the eight exact grading items and their real 
 - `oc-pipelines-oc-final.png`: OpenShift Pipelines → `oc-final` overview showing stages.
 - `oc-pipelines-oc-green.png`: the real successful PipelineRun with all tasks completed.
 
-`oc-pipelines-app-logs.txt` must come from the deployed application via `oc logs`. Do not rename local server logs to this required evidence file. Console screenshots are captured manually only after genuine successful execution.
+`oc-pipeline-application-logs.txt` must come from the deployed application via `oc logs`. Do not rename local server logs to this required evidence file. Console screenshots are captured manually only after genuine successful execution.
+
+The application startup banner is `SERVICERUNNING` centered between asterisks and includes port 8000. Only real OpenShift pod logs showing this banner count for Question 8.

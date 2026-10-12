@@ -62,7 +62,7 @@ spec:
 apiVersion: tekton.dev/v1
 kind: Task
 metadata:
-  name: build-image
+  name: buildah
 spec:
   params:
     - name: image-tag
@@ -72,39 +72,43 @@ spec:
   results:
     - name: image
       description: Built image reference including digest
+  volumes:
+    - name: registry-auth
+      emptyDir: {}
   steps:
-    - name: openshift-build
+    - name: registry-credentials
       image: quay.io/openshift/origin-cli:4.18
-      workingDir: $(workspaces.source.path)/source
-      env:
-        - name: IMAGE_TAG
-          value: $(params.image-tag)
+      volumeMounts:
+        - name: registry-auth
+          mountPath: /auth
       script: |
         #!/bin/sh
         set -eu
-        # Unique BuildConfig and output tag prevent concurrent build collisions.
-        oc create -f - <<EOF
-        apiVersion: build.openshift.io/v1
-        kind: BuildConfig
-        metadata:
-          name: catalog-$IMAGE_TAG
-        spec:
-          source:
-            type: Binary
-          strategy:
-            type: Docker
-            dockerStrategy:
-              dockerfilePath: Dockerfile
-          output:
-            to:
-              kind: ImageStreamTag
-              name: ci-cd-final-project:$IMAGE_TAG
-          runPolicy: Serial
-        EOF
-        oc start-build "catalog-$IMAGE_TAG" --from-dir=. --follow --wait
-        oc get istag "ci-cd-final-project:$IMAGE_TAG" \
-          -o jsonpath='{.image.dockerImageReference}' > "$(results.image.path)"
-        test -s "$(results.image.path)"
+        umask 077
+        oc whoami -t > /auth/token
+    - name: build-and-push
+      image: registry.redhat.io/rhel8/buildah:latest
+      workingDir: $(workspaces.source.path)/source
+      securityContext:
+        runAsUser: 0
+      env:
+        - name: REGISTRY
+          value: image-registry.openshift-image-registry.svc:5000
+        - name: IMAGE
+          value: image-registry.openshift-image-registry.svc:5000/$(context.taskRun.namespace)/ci-cd-final-project:$(params.image-tag)
+      volumeMounts:
+        - name: registry-auth
+          mountPath: /auth
+      script: |
+        #!/bin/sh
+        set -eu
+        trap 'rm -f /auth/token /auth/registry.json' EXIT
+        buildah login --authfile /auth/registry.json --username serviceaccount \
+          --password-stdin "$REGISTRY" < /auth/token
+        buildah --storage-driver=vfs bud --isolation=chroot -f Dockerfile -t "$IMAGE" .
+        buildah --storage-driver=vfs push --authfile /auth/registry.json \
+          --digestfile /tmp/image-digest "$IMAGE" "docker://$IMAGE"
+        printf '%s@%s' "${IMAGE%:*}" "$(cat /tmp/image-digest)" > "$(results.image.path)"
 ---
 apiVersion: tekton.dev/v1
 kind: Task
@@ -130,5 +134,5 @@ spec:
         oc set image deployment/ci-cd-final-project catalog="$APP_IMAGE"
         oc rollout status deployment/ci-cd-final-project --timeout=180s
         oc exec deployment/ci-cd-final-project -- node -e \
-          'fetch("http://127.0.0.1:8080/health").then(async r => {if (!r.ok || (await r.json()).status !== "ok") process.exit(1); console.log("Health OK");}).catch(() => process.exit(1))'
+          'fetch("http://127.0.0.1:8000/health").then(async r => {if (!r.ok || (await r.json()).status !== "ok") process.exit(1); console.log("Health OK");}).catch(() => process.exit(1))'
         oc logs deployment/ci-cd-final-project --tail=100

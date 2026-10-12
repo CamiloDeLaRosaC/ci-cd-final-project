@@ -1,2 +1,2 @@
-{"event":"started","port":8080,"service":"ci-cd-final-project"}
-{"event":"shutdown","signal":"SIGINT"}
+********** SERVICERUNNING on port 8000 **********
+{"event":"started","port":8000,"service":"ci-cd-final-project"}

@@ -5,4 +5,4 @@ coverage/
 !.env.example
 .DS_Store
 submission/*.png
-submission/oc-pipelines-app-logs.txt
+submission/oc-pipeline-application-logs.txt

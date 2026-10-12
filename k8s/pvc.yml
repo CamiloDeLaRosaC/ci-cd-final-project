@@ -3,6 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: oc-pipelines-pvc
 spec:
+  storageClassName: skills-network-learner
   accessModes: [ReadWriteOnce]
   resources:
     requests:

@@ -40,7 +40,7 @@ for (const task of pipeline.spec.tasks) {
   for (const param of task.params || []) assert(definition.spec.params.some(item => item.name === param.name));
   completed.add(task.name);
 }
-assert.deepEqual([...completed], ['cleanup', 'clone', 'validate', 'tests', 'build', 'deploy']);
+assert.deepEqual([...completed], ['cleanup', 'git-clone', 'eslint', 'jest', 'buildah', 'deploy']);
 assert(tasks.get('cleanup').spec.steps[0].script.includes('/source/node_modules'));
 assert(tasks.get('unit-tests').spec.steps[0].script.includes('npm ci'));
 assert(tasks.get('unit-tests').spec.steps[0].script.includes('npm test'));
@@ -57,8 +57,8 @@ assert.equal(route.spec.to.name, service.metadata.name);
 assert.equal(deployment.spec.template.spec.securityContext.runAsNonRoot, true);
 assert.equal(deployment.spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation, false);
 assert.equal(service.spec.ports[0].targetPort, deployment.spec.template.spec.containers[0].ports[0].containerPort);
-assert.equal(tasks.get('build-image').spec.results[0].name, 'image');
-assert.equal(pipeline.spec.tasks.at(-1).params[0].value, '$(tasks.build.results.image)');
+assert.equal(tasks.get('buildah').spec.results[0].name, 'image');
+assert.equal(pipeline.spec.tasks.at(-1).params[0].value, '$(tasks.buildah.results.image)');
 assert.equal(JSON.parse(fs.readFileSync(path.join(root, 'package-lock.json'))).lockfileVersion, 3);
 console.log(`PASS: ${documents.length} YAML resources; workflow commands; ordered Task references; workspaces; PVC; security and service mappings.`);
 console.log('Cluster API/schema compatibility and external executions require server-side verification.');
